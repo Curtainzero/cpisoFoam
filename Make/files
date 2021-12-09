@@ -1,0 +1,3 @@
+cpisoFoam.C
+
+EXE = $(FOAM_APPBIN)/cpisoFoam

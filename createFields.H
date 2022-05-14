@@ -38,33 +38,6 @@ IOdictionary transportProperties
     )
 );
 
-IOdictionary ReactionProperties
-(
-    IOobject
-    (
-        "ReactionProperties",
-        runTime.constant(),
-        mesh,
-        IOobject::MUST_READ_IF_MODIFIED,
-        IOobject::NO_WRITE
-    )
-);
-
-dimensionedScalar C1
-(
-    ReactionProperties.lookup("C1")
-);
-
-dimensionedScalar C2
-(
-    ReactionProperties.lookup("C2")
-);
-
-dimensionedScalar k
-(
-    ReactionProperties.lookup("k")
-);
-
 
 Info<< "Reading field Mixture fraction Kesi\n" << endl;
 volScalarField Ksi
@@ -86,20 +59,6 @@ volScalarField KsiVar
     IOobject
     (
     "KsiVar",
-	runTime.timeName(),
-	mesh,
-	IOobject::NO_READ,
-    IOobject::AUTO_WRITE
-    ),
-    mesh
-);
-
-Info<< "Creating field for reaction progress variable" << endl;
-volScalarField y
-(
-    IOobject
-    (
-    "y",
 	runTime.timeName(),
 	mesh,
 	IOobject::NO_READ,

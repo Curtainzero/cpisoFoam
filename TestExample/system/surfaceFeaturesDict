@@ -1,0 +1,19 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      surfaceFeaturesDict;
+}
+
+test
+{
+    surfaces
+    (
+        "test.stl"
+    );
+
+    includedAngle   120;
+    geometricTestOnly   yes;
+    writeObj    yes;
+}

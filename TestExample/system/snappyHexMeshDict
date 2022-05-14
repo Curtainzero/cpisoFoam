@@ -1,0 +1,137 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      snappyHexMeshDict;
+}
+
+castellatedMesh true;
+snap            true;
+addLayers       false;
+
+geometry
+{
+    test
+    {
+        type triSurfaceMesh;
+        file "test.stl";
+    }
+}
+
+castellatedMeshControls
+{
+    maxLocalCells 50000;
+    maxGlobalCells 500000;
+    minRefinementCells 0;
+    nCellsBetweenLevels 2;
+    maxLoadUnbalance 0.10;
+
+    features
+    (
+        {
+            file "test.eMesh";
+            level 3;
+        }
+    );
+
+    resolveFeatureAngle 30;
+
+    refinementSurfaces
+    {
+        test
+        {
+            level (1 3);
+        }
+    }
+
+    refinementRegions
+    {
+        test
+        {
+            mode inside;
+            levels ((1 1));
+        }
+    }
+
+    locationInMesh (0.0 0.0 0.0);
+
+    allowFreeStandingZoneFaces true;
+
+}
+
+snapControls
+{
+
+    nSmoothPatch 5;
+
+    tolerance 1.0;
+
+    nSolveIter 300;
+
+    nRelaxIter 20;
+
+    nFeatureSnapIter 10;
+
+    implicitFeatureSnap true;
+
+    explicitFeatureSnap false;
+
+    multiRegionFeatureSnap true;
+}
+
+addLayersControls
+{
+
+    relativeSizes true;
+
+    layers
+    {
+    }
+
+    expansionRatio 1.0;
+
+    finalLayerThickness 0.3;
+
+    minThickness 0.25;
+
+    nGrow 0;
+
+    featureAngle 30;
+
+    nRelaxIter 5;
+
+    nSmoothSurfaceNormals 1;
+
+    nSmoothNormals 3;
+
+    nSmoothThickness 10;
+
+    maxFaceThicknessRatio 0.5;
+
+    maxThicknessToMedialRatio 0.3;
+
+    minMedianAxisAngle 90;
+
+    nBufferCellsNoExtrude 0;
+
+    nLayerIter 50;
+
+    nRelaxedIter 20;
+}
+
+meshQualityControls
+{
+    #include "meshQualityDict"
+
+    relaxed
+    {
+        maxNonOrtho 75;
+    }
+}
+
+writeFlags
+(
+);
+
+mergeTolerance 1E-7;

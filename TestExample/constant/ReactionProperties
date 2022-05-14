@@ -1,0 +1,13 @@
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      ReactionProperties;
+}
+
+C1  C1   [ 0 -3 0 0 1 0 0 ] 0.002;
+
+C2  C2   [ 0 -3 0 0 1 0 0 ] 0.002;
+
+k k [ 0 3 -1 0 -1 0 0 ] 0.002;

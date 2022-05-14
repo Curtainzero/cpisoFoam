@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
         turbulence->correct();
 
         #include "KsiEqn.H"
-        #include "ReactionEqn.H"
+
 
         runTime.write();
 

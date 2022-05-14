@@ -51,8 +51,6 @@ int main(int argc, char *argv[])
 
     #include "setRootCaseLists.H"
 
-    Info<< "This is a new pisoFoam solver with concentration field" << endl;
-    Info<< "You need to ensure adding gammaC and C" <<endl;
     #include "createTime.H"
     #include "createMesh.H"
     #include "createControl.H"
@@ -83,11 +81,13 @@ int main(int argc, char *argv[])
                 #include "pEqn.H"
             }
 
-            #include "CEqn.H"
         }
 
         laminarTransport.correct();
         turbulence->correct();
+
+        #include "KsiEqn.H"
+        #include "ReactionEqn.H"
 
         runTime.write();
 

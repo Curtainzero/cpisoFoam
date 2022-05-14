@@ -38,20 +38,71 @@ IOdictionary transportProperties
     )
 );
 
-dimensionedScalar Gammac
-(
-    transportProperties.lookup("Gammac")
-);
-
-Info<< "Reading field C\n" << endl;
-volScalarField C
+IOdictionary ReactionProperties
 (
     IOobject
     (
-        "C",
+        "ReactionProperties",
+        runTime.constant(),
+        mesh,
+        IOobject::MUST_READ_IF_MODIFIED,
+        IOobject::NO_WRITE
+    )
+);
+
+dimensionedScalar C1
+(
+    ReactionProperties.lookup("C1")
+);
+
+dimensionedScalar C2
+(
+    ReactionProperties.lookup("C2")
+);
+
+dimensionedScalar k
+(
+    ReactionProperties.lookup("k")
+);
+
+
+Info<< "Reading field Mixture fraction Kesi\n" << endl;
+volScalarField Ksi
+(
+    IOobject
+    (
+        "Ksi",
 	runTime.timeName(),
 	mesh,
 	IOobject::MUST_READ,
+    IOobject::AUTO_WRITE
+    ),
+    mesh
+);
+
+Info<< "Creating field for Mixture fraction variance" << endl;
+volScalarField KsiVar
+(
+    IOobject
+    (
+    "KsiVar",
+	runTime.timeName(),
+	mesh,
+	IOobject::NO_READ,
+    IOobject::AUTO_WRITE
+    ),
+    mesh
+);
+
+Info<< "Creating field for reaction progress variable" << endl;
+volScalarField y
+(
+    IOobject
+    (
+    "y",
+	runTime.timeName(),
+	mesh,
+	IOobject::NO_READ,
     IOobject::AUTO_WRITE
     ),
     mesh
@@ -72,6 +123,13 @@ autoPtr<incompressible::momentumTransportModel> turbulence
 (
     incompressible::momentumTransportModel::New(U, phi, laminarTransport)
 );
+
+
+Info << "Creating Constants for Mixture tansport model" << endl;
+
+dimensionedScalar mfSct = 0.7;
+dimensionedScalar mfCmu = 0.09;
+dimensionedScalar mfCphi = 2;
 
 #include "createMRF.H"
 #include "createFvModels.H"
